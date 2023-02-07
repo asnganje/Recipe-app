@@ -1,6 +1,6 @@
 class Food < ApplicationRecord
-    has_many :inventory_food
-    has_many :recipe_food
-    has_many :inventory, through: :inventory_food
-    has_many :recipe, through: :recipe_food
+    has_many :inventory_foods
+    has_many :recipe_foods
+    has_many :inventories, through: :inventory_foods
+    has_many :recipes, through: :recipe_foods
 end

@@ -1,4 +1,4 @@
 class User < ApplicationRecord
-    has_many :recipe
-    has_many :inventory
+    has_many :recipes
+    has_many :inventories
 end
