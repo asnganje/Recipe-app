@@ -1,10 +1,40 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @recipe %>
+<h1><%= @recipe.name%></h1>
+<p>Preparation Time:<%= @recipe.preparation_time%></p>
+<div>
+    <p><%= @recipe.public %></p>
+</div><br/>
+<p>Cooking-time:<%= @recipe.cooking_time%></p>
+<span><%= link_to "steps go here..." %></span>
 
 <div>
-  <%= link_to "Edit this recipe", edit_recipe_path(@recipe) %> |
+  <%= button_to "Generate shopping list", edit_recipe_path(@recipe) %> |
+  <%= button_to "Adding ingredient", recipes_path %> |
   <%= link_to "Back to recipes", recipes_path %>
-
-  <%= button_to "Destroy this recipe", @recipe, method: :delete %>
 </div>
+
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>Food</th>
+        <th>Quantity</th>
+        <th>Value</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% RecipeFood.includes([:food]).where(recipe_id: @recipe.id).each do |recipe_food|%>
+      <tr>
+        <td><%= Food.find_by(id: recipe_food.food_id).name %></td>
+        <%# <td><%= link_to(recipe_food, :class => "readmore")%></td> %>
+        <%# <td><%= link_to(recipe_food, :class => "readmore") %></td> %>
+        <%# <td><%= link_to(recipe_food, :class => "readmore") %></td>  %>
+      </tr>
+      <%end%>
+    </tbody>
+  </table>
+</div>
+
+
