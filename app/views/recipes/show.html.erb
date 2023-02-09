@@ -28,13 +28,43 @@
       <% RecipeFood.includes([:food]).where(recipe_id: @recipe.id).each do |recipe_food|%>
       <tr>
         <td><%= Food.find_by(id: recipe_food.food_id).name %></td>
-        <%# <td><%= link_to(recipe_food, :class => "readmore")%></td> %>
-        <%# <td><%= link_to(recipe_food, :class => "readmore") %></td> %>
-        <%# <td><%= link_to(recipe_food, :class => "readmore") %></td>  %>
+        <td><%= recipe_food.quantity %></td>
+        <td> $ <%= recipe_food.quantity.to_i * recipe_food.food.price %> </td>
+          <td>
+          <%= link_to "Modify", recipe_food_path, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
+          <%= link_to "Remove", recipe_food, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
+          </td>
       </tr>
       <%end%>
     </tbody>
   </table>
+
+    <div>
+  <%= form_with(model: @recipe_food) do |form| %>
+    <% if @recipe_food.errors.any? %>
+      <div style="color: red">
+          <h2><%= pluralize(@recipe_food.errors.count, "error") %> prohibited this recipe_food from being saved:</h2>
+
+          <ul>
+            <% @recipe_food.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+        <div>
+          <%= collection_select(:recipe_food, :food_id, Food.all, :id, :name) %>
+          <%= form.label :quantity, style: "display: block" %>
+          <%= form.number_field :quantity %>
+          <%= form.hidden_field :recipe_id, value: params[:id] %>
+          <div>
+            <%= form.submit %>
+          </div>
+        </div>
+      </div>
+  <% end %>
 </div>
+
+
 
 
