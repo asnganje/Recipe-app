@@ -1,9 +1,58 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @inventory %>
+<table>
+    <thead>
+      <tr>
+        <th>Food</th>
+        <th>Quantity</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+          <% InventoryFood.where(inventory_id: @inventory.id).each do |inventory_food| %>
+          <tr>
+          <td><%= Food.find_by(id: inventory_food.food_id).name %></td>
+          <td> <%= inventory_food.quantity %> </td>
+          <td>
+          <%= button_to "Remove", inventory_food, method: :delete, data: { confirm: "Are you sure?" } %>
+          </td>
+          </td> 
+          </tr>
+        <% end %>
+    </tbody>
+    </table>
+
+  <div>
+  <%= form_with(model: @inventory_food) do |form| %>
+    <% if @inventory_food.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(@inventory_food.errors.count, "error") %> prohibited this inventory_food from being saved:</h2>
+
+        <ul>
+          <% @inventory_food.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div>
+      <div class="collection">
+      <%= collection_select(:inventory_food, :food_id, Food.all, :id, :name) %>
+      </div>
+      <div>
+        <%= form.label :quantity %> <br>
+        <%= form.number_field :quantity, placeholder: "Add quantity" %>
+      </div>
+        <%= collection_select(:inventory_food, :inventory_id, Inventory.all, :id, :name) %>
+      <div>
+        <%= form.submit "Add Food" %>
+      </div>
+    </div>
+  <% end %>
+</div>
 
 <div>
-  <%= link_to "Edit this inventory", edit_inventory_path(@inventory) %> |
   <%= link_to "Back to inventories", inventories_path %>
 
   <%= button_to "Destroy this inventory", @inventory, method: :delete %>

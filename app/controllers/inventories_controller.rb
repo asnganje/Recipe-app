@@ -3,11 +3,15 @@ class InventoriesController < ApplicationController
 
   # GET /inventories or /inventories.json
   def index
-    @inventories = Inventory.all
+    @inventories = current_user.inventories
   end
 
   # GET /inventories/1 or /inventories/1.json
-  def show; end
+  def show
+    @inventory = Inventory.find_by(id: params[:id])
+    @food = Food.new
+    @inventory_food = InventoryFood.new
+  end
 
   # GET /inventories/new
   def new
@@ -20,6 +24,7 @@ class InventoriesController < ApplicationController
   # POST /inventories or /inventories.json
   def create
     @inventory = Inventory.new(inventory_params)
+    @inventory.user = current_user
 
     respond_to do |format|
       if @inventory.save
@@ -64,6 +69,6 @@ class InventoriesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def inventory_params
-    params.fetch(:inventory, {})
+    params.require(:inventory).permit(:name)
   end
 end

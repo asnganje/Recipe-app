@@ -11,6 +11,13 @@
     </div>
   <% end %>
 
+     <div>
+  <%= collection_select(:inventory_food, :food_id, Food.all, :id, :name) %>
+    <%= form.label :quantity%>
+    <%= form.number_field :quantity %>
+    <%= collection_select(:inventory_food, :inventory_id, Inventory.all, :id, :name) %>
+  </div>
+
   <div>
     <%= form.submit %>
   </div>
