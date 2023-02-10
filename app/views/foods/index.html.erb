@@ -3,6 +3,17 @@
 <h1>Foods</h1>
 
 <div id="foods">
+<%= link_to "Add food", new_food_path %>
+  <table>
+    <thead>
+      <tr>
+        <th>Food</th>
+        <th>Measurement Unit</th>
+        <th>Unit Price</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+  </table>
   <% @foods.each do |food| %>
     <%= render food %>
     <p>
@@ -11,4 +22,4 @@
   <% end %>
 </div>
 
-<%= link_to "New food", new_food_path %>
+

@@ -3,18 +3,16 @@ class RecipesController < ApplicationController
 
   # GET /recipes or /recipes.json
   def index
-    @recipes = Recipe.where(user_id: current_user.id)
+    @recipes = Recipe.all
   end
 
   # GET /recipes/1 or /recipes/1.json
-  def show
-    @foods = Food.includes(:recipe_foods)
-    @recipe = Recipe.find(params[:id])
-  end
+  def show; end
 
   # GET /recipes/new
   def new
     @recipe = Recipe.new
+    # @foods = current_user.foods
   end
 
   # POST /recipes or /recipes.json
@@ -43,6 +41,6 @@ class RecipesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def recipe_params
-    params.require(:recipe).permit(:name, :preparation_time, :cooking_time, :description, :public)
+    params.fetch(:recipe, {})
   end
 end

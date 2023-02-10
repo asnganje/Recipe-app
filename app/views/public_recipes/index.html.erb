@@ -1,1 +1,14 @@
 <h1>Public Recipes </h1>
+  <div>
+    <% @public_recipes.each do |recipe| %>
+      <div>
+        <h2><%= recipe.name %></h2>
+        <h2>By: <%= recipe.user %></h2>
+      </div>
+      <div>
+      <p>Total Food Items: <%= recipe.foods.length %>
+      <p>Total Price: <%= @prices.sum %>
+      </div>
+    <% end %>
+
+  </div>
