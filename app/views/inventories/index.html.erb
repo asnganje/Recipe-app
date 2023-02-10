@@ -2,14 +2,15 @@
 
 <h1>Inventories</h1>
 
+<%= link_to "Add a new inventory", new_inventory_path %>
 <div id="inventories">
   <% @inventories.each do |inventory| %>
-  <%= link_to "Add a new inventory", new_inventory_path %>
+
     <%= render inventory %>
        
       <div> We love cooking but not during program time</div>
   <% if can? :destroy, inventory %>
-  <%= link_to "Remove", inventories_path, method: :delete, data: { confirm: "Are you sure?" }, class: "actions" %>
+  <%= link_to "Remove", inventories_path, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
   <% end %>
 
   <p>
