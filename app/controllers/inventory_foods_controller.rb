@@ -68,6 +68,6 @@ class InventoryFoodsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def inventory_food_params
-    params.fetch(:inventory_food, {})
+    params.require(:inventory_food).permit(:quantity, :inventory_id, :food_id)
   end
 end
