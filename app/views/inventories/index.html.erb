@@ -10,7 +10,7 @@
        
       <div> We love cooking but not during program time</div>
   <% if can? :destroy, inventory %>
-  <%= link_to "Remove", inventories_path, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
+  <%= link_to "Remove", inventories_path, method: :delete, data: { confirm: "Are you sure?" }, class: "actions" %>
   <% end %>
 
   <p>
