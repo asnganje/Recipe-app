@@ -1,10 +1,9 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>Inventories</h1>
-
+  <%= link_to "Add a new inventory", new_inventory_path %>
 <div id="inventories">
   <% @inventories.each do |inventory| %>
-  <%= link_to "Add a new inventory", new_inventory_path %>
     <%= render inventory %>
        
       <div> We love cooking but not during program time</div>
