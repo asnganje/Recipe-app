@@ -12,6 +12,31 @@
   <% end %>
 
   <div>
+    <%= form.label "name" %>
+    <%= form.text_field :name %>
+  </div><br/>
+
+    <div>
+    <%= form.label "preparation time" %>
+    <%= form.text_field :preparation_time %>
+    </div><br/>
+
+    <div>
+    <%= form.label "cooking time" %>
+    <%= form.text_field :cooking_time %>
+    </div><br/>
+
+    <div>
+    <%= form.label "description" %>
+    <%= form.text_field :description %>
+    </div><br/>
+
+    <div>
+    <%= form.label "public" %>
+    <%= form.check_box :public, {}, true, false %>
+    </div><br/>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>

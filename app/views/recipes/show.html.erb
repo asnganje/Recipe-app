@@ -1,10 +1,70 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @recipe %>
+<h1><%= @recipe.name%></h1>
+<p>Preparation Time:<%= @recipe.preparation_time%></p>
+<div>
+    <p><%= @recipe.public %></p>
+</div><br/>
+<p>Cooking-time:<%= @recipe.cooking_time%></p>
+<span><%= link_to "steps go here..." %></span>
 
 <div>
-  <%= link_to "Edit this recipe", edit_recipe_path(@recipe) %> |
+  <%= button_to "Generate shopping list", edit_recipe_path(@recipe) %> |
+  <%= button_to "Adding ingredient", recipes_path %> |
   <%= link_to "Back to recipes", recipes_path %>
-
-  <%= button_to "Destroy this recipe", @recipe, method: :delete %>
 </div>
+
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>Food</th>
+        <th>Quantity</th>
+        <th>Value</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% RecipeFood.includes([:food]).where(recipe_id: @recipe.id).each do |recipe_food|%>
+      <tr>
+        <td><%= Food.find_by(id: recipe_food.food_id).name %></td>
+        <td><%= recipe_food.quantity %></td>
+        <td> $ <%= recipe_food.quantity.to_i * recipe_food.food.price %> </td>
+          <td>
+          <%= link_to "Modify", recipe_food_path, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
+          <%= link_to "Remove", recipe_food, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' } %>
+          </td>
+      </tr>
+      <%end%>
+    </tbody>
+  </table>
+
+    <div>
+  <%= form_with(model: @recipe_food) do |form| %>
+    <% if @recipe_food.errors.any? %>
+      <div style="color: red">
+          <h2><%= pluralize(@recipe_food.errors.count, "error") %> prohibited this recipe_food from being saved:</h2>
+
+          <ul>
+            <% @recipe_food.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+        <div>
+          <%= collection_select(:recipe_food, :food_id, Food.all, :id, :name) %>
+          <%= form.label :quantity, style: "display: block" %>
+          <%= form.number_field :quantity %>
+          <%= form.hidden_field :recipe_id, value: params[:id] %>
+          <div>
+            <%= form.submit %>
+          </div>
+        </div>
+      </div>
+  <% end %>
+</div>
+
+
+
+
