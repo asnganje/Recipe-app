@@ -3,7 +3,7 @@
     <% @public_recipes.each do |recipe| %>
       <div>
         <h2><%= recipe.name %></h2>
-        <h2>By: <%= recipe.user %></h2>
+        <h2>By: <%= recipe.user.id %></h2>
       </div>
       <div>
       <p>Total Food Items: <%= recipe.foods.length %>

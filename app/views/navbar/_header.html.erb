@@ -1,18 +1,18 @@
-<nav>
+<nav class="nav_bar">
 <% if user_signed_in? %> 
 
-  <ul>
-    <li> <%= link_to "Foods", foods_path%> </li>
-    <li> <%= link_to "Recipes", recipes_path %> </li>
-    <li> <%= link_to "Inventories", inventories_path %> </li>
-    <li> <%= link_to "Logout", destroy_user_session_path, method: :delete, data: { turbo: false } %> </li>
-    <li> <%= link_to "Shopping list", general_shopping_lists_path %> </li>
-    <li> <%= link_to "Public Recipes", public_recipes_path %> </li>
+  <ul class="nav_bar__links">
+    <li> <%= link_to "Foods", foods_path, class: "nav_bar__link" %> </li>
+    <li> <%= link_to "Recipes", recipes_path, class: "nav_bar__link" %> </li>
+    <li> <%= link_to "Inventories", inventories_path, class: "nav_bar__link" %> </li>
+    <li> <%= button_to "Logout", destroy_user_session_path, method: :delete %> </li>
+    <li> <%= link_to "Shopping list", general_shopping_lists_path, class: "nav_bar__link" %> </li>
+    <li> <%= link_to "Public Recipes", public_recipes_path, class: "nav_bar__link" %> </li>
   </ul>
   <% else %>
   <ul>
-    <li> <%= link_to "SignUp", new_user_registration_path %> </li>
-    <li> <%= link_to "Login",  new_user_session_path %> </li>
+    <li> <%= link_to "SignUp", new_user_registration_path, class: "nav_bar__link" %> </li>
+    <li> <%= link_to "Login",  new_user_session_path, class: "nav_bar__link" %> </li>
   </ul>
   <% end %>
 </nav>
