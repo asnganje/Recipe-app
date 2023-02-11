@@ -11,6 +11,7 @@ class RecipesController < ApplicationController
     @food = Food.new
     @recipe = Recipe.find_by(id: params[:id])
     @recipe_food = RecipeFood.new
+    @inventories = Inventory.where(user_id: current_user.id)
   end
 
   # GET /recipes/new
