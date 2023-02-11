@@ -13,12 +13,12 @@
 
       <p>
         <span>Recipe: </span>
-        <span>&nbsp;<%= Recipe.find(params[:recipe_id]).name %></span>
+        <span>&nbsp;<%= Recipe.find_by(params[:name]).id %></span>
       </p>
 
       <p>
         <span>Inventory:</span>
-        <span>&nbsp;<%= Inventory.find_by(params[:id]).name %></span>
+        <span>&nbsp;<%= Inventory.find_by(params[:name]).id%></span>
       </p>
     </div>
 
