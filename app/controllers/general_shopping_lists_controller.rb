@@ -21,4 +21,7 @@ class GeneralShoppingListsController < ApplicationController
     end
     
   end
+  def shopping_lists_params
+    params.require(:shopping_list).permit(:recipe_id, :inventory_id)
+  end
 end
